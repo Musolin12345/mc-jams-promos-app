@@ -7,9 +7,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Java 17
@@ -18,11 +18,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Display File Directory Structure
+        run: ls -R
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build APK
-        run: gradle assembleDebug --stacktrace --info
+      - name: Build Debug APK
+        run: gradle assembleDebug --stacktrace
         continue-on-error: true
 
       - name: Upload APK
