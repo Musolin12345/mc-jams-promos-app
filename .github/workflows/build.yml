@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set up Java 17
@@ -18,18 +18,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Display File Directory Structure
-        run: ls -R
-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build Debug APK
         run: gradle assembleDebug --stacktrace
-        continue-on-error: true
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: MCJamsPromos-APK
-          path: app/build/outputs/apk/debug/*.apk
